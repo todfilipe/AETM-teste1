@@ -180,32 +180,40 @@ void ProcurarAnimalPorNome(LIST list) {
 
 // Remover animal por nome
 void RemoverAnimalPorNome(LIST* list) {
-    char nome[100];
+    char nome[100];  // Variável para guardar o nome que o utilizador quer remover
+
     printf("\n--- Remover Animal por Nome ---\n");
     printf("Nome do animal a remover: ");
-    scanf(" %[^\n]", nome);
+    scanf(" %[^\n]", nome);  // Lê o nome (com espaços, se houver)
 
-    LIST_NODE* atual = *list;
-    LIST_NODE* anterior = NULL;
+    // Começamos no início da lista
+    LIST_NODE* atual = *list;       // 'atual' é o nó que estamos a verificar
+    LIST_NODE* anterior = NULL;     // 'anterior' guarda o nó antes do atual
 
+    // Percorre a lista enquanto não chegar ao fim ou encontrar o nome procurado
     while (atual != NULL && strcmp(atual->data->nome, nome) != 0) {
-        anterior = atual;
-        atual = atual->next;
+        anterior = atual;           // Avança o 'anterior' para o atual
+        atual = atual->next;        // Avança o 'atual' para o próximo nó
     }
 
+    // Se o 'atual' for NULL, chegámos ao fim da lista e o nome não foi encontrado
     if (atual == NULL) {
         printf("Animal não encontrado.\n");
-        return;
+        return;  // Termina a função
     }
 
+    // Se o 'anterior' for NULL, significa que o animal está no primeiro nó (início da lista)
     if (anterior == NULL)
-        *list = atual->next;
+        *list = atual->next;  // A cabeça da lista passa a ser o segundo nó
     else
-        anterior->next = atual->next;
+        anterior->next = atual->next;  // Liga o nó anterior ao seguinte, saltando o atual
 
+    // Liberta a memória do nó removido
     DeleteNode(atual);
+
     printf("Animal removido com sucesso.\n");
 }
+
 
 // --------------------------
 // RESTO DAS FUNÇÕES
