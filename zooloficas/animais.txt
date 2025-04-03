@@ -1,0 +1,7 @@
+Leão;Panthera leo;5
+Elefante;Loxodonta africana;12
+Girafa;Giraffa camelopardalis;8
+Pinguim;Aptenodytes forsteri;4
+Canguru;Macropus rufus;6
+Zebra;Equus zebra;7
+Urso Polar;Ursus maritimus;10
