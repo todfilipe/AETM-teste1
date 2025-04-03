@@ -1,10 +1,10 @@
-Ôªø#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 // --------------------------
-// DEFINI√á√ïES E ESTRUTURAS
+// DEFINI«’ES E ESTRUTURAS
 // --------------------------
 
 typedef struct {
@@ -21,7 +21,7 @@ typedef struct node {
 typedef LIST_NODE* LIST;
 
 // --------------------------
-// FUN√á√ïES DE N√ì E LISTA
+// FUN«’ES DE N” E LISTA
 // --------------------------
 
 LIST_NODE* NewNode(ANIMAL* data) {
@@ -50,50 +50,50 @@ void FreeList(LIST* list) {
 }
 
 int InsertAt(LIST* list, ANIMAL* data, int pos) {
-    // Se a posi√ß√£o for negativa, √© inv√°lida ‚Üí n√£o insere nada.
+    // Se a posiÁ„o for negativa, È inv·lida ? n„o insere nada.
     if (pos < 0) return 0;
 
-    // Cria um novo n√≥ com os dados fornecidos.
+    // Cria um novo nÛ com os dados fornecidos.
     LIST_NODE* new_node = NewNode(data);
 
-    // Se a cria√ß√£o do n√≥ falhar (mem√≥ria insuficiente, etc), retorna 0.
+    // Se a criaÁ„o do nÛ falhar (memÛria insuficiente, etc), retorna 0.
     if (new_node == NULL) return 0;
 
-    // Caso especial: inserir na cabe√ßa da lista (posi√ß√£o 0).
+    // Caso especial: inserir na cabeÁa da lista (posiÁ„o 0).
     if (pos == 0) {
-        // O novo n√≥ aponta para o antigo primeiro elemento.
+        // O novo nÛ aponta para o antigo primeiro elemento.
         new_node->next = *list;
 
-        // A lista agora come√ßa com o novo n√≥.
+        // A lista agora comeÁa com o novo nÛ.
         *list = new_node;
 
-        // Inser√ß√£o bem-sucedida.
+        // InserÁ„o bem-sucedida.
         return 1;
     }
 
     // Ponteiro auxiliar que percorre a lista.
     LIST_NODE* atual = *list;
 
-    // Avan√ßa at√© o n√≥ imediatamente antes da posi√ß√£o desejada.
-    // i < pos - 1 porque queremos parar no n√≥ anterior √† posi√ß√£o de inser√ß√£o.
+    // AvanÁa atÈ o nÛ imediatamente antes da posiÁ„o desejada.
+    // i < pos - 1 porque queremos parar no nÛ anterior ‡ posiÁ„o de inserÁ„o.
     for (int i = 0; i < pos - 1 && atual != NULL; i++) {
         atual = atual->next;
     }
 
-    // Se 'atual' for NULL, ent√£o a posi√ß√£o est√° fora dos limites da lista.
+    // Se 'atual' for NULL, ent„o a posiÁ„o est· fora dos limites da lista.
     if (atual == NULL) {
-        // Liberta o n√≥ que foi criado, pois n√£o ser√° usado.
+        // Liberta o nÛ que foi criado, pois n„o ser· usado.
         DeleteNode(new_node);
         return 0;
     }
 
-    // Liga o novo n√≥ ao n√≥ seguinte (que antes vinha depois de 'atual').
+    // Liga o novo nÛ ao nÛ seguinte (que antes vinha depois de 'atual').
     new_node->next = atual->next;
 
-    // Liga o n√≥ anterior ('atual') ao novo n√≥.
+    // Liga o nÛ anterior ('atual') ao novo nÛ.
     atual->next = new_node;
 
-    // Inser√ß√£o foi bem-sucedida.
+    // InserÁ„o foi bem-sucedida.
     return 1;
 }
 
@@ -125,25 +125,25 @@ int RemoveAt(LIST* list, int pos) {
 }
 
 // --------------------------
-// FUN√á√ïES NOVAS PEDIDAS
+// FUN«’ES NOVAS PEDIDAS
 // --------------------------
 
-// Inserir no in√≠cio da lista
+// Inserir no inÌcio da lista
 void InserirAnimalInicio(LIST* list) {
     char nome[100], especie[100];
     int idade;
 
-    printf("\n--- Inserir no in√≠cio ---\n");
+    printf("\n--- Inserir no inÌcio ---\n");
     printf("Nome: ");
     scanf(" %[^\n]", nome);
-    printf("Esp√©cie: ");
+    printf("EspÈcie: ");
     scanf(" %[^\n]", especie);
     printf("Idade: ");
     scanf("%d", &idade);
 
     ANIMAL* novo = malloc(sizeof(ANIMAL));
     if (!novo) {
-        printf("Erro de mem√≥ria.\n");
+        printf("Erro de memÛria.\n");
         return;
     }
 
@@ -152,7 +152,7 @@ void InserirAnimalInicio(LIST* list) {
     novo->idade = idade;
 
     if (InsertAt(list, novo, 0))
-        printf("Animal inserido no in√≠cio com sucesso.\n");
+        printf("Animal inserido no inÌcio com sucesso.\n");
     else {
         printf("Erro ao inserir.\n");
         free(novo);
@@ -175,7 +175,7 @@ void ProcurarAnimalPorNome(LIST list) {
         list = list->next;
     }
 
-    printf("Animal n√£o encontrado.\n");
+    printf("Animal n„o encontrado.\n");
 }
 
 // Remover animal por nome
@@ -194,7 +194,7 @@ void RemoverAnimalPorNome(LIST* list) {
     }
 
     if (atual == NULL) {
-        printf("Animal n√£o encontrado.\n");
+        printf("Animal n„o encontrado.\n");
         return;
     }
 
@@ -208,26 +208,26 @@ void RemoverAnimalPorNome(LIST* list) {
 }
 
 // --------------------------
-// RESTO DAS FUN√á√ïES
+// RESTO DAS FUN«’ES
 // --------------------------
 
 void InserirAnimalNaPosicao(LIST* list) {
     char nome[100], especie[100];
     int idade, pos;
 
-    printf("\n--- Inserir Animal em Posi√ß√£o ---\n");
+    printf("\n--- Inserir Animal em PosiÁ„o ---\n");
     printf("Nome: ");
     scanf(" %[^\n]", nome);
-    printf("Esp√©cie: ");
+    printf("EspÈcie: ");
     scanf(" %[^\n]", especie);
     printf("Idade: ");
     scanf("%d", &idade);
-    printf("Posi√ß√£o: ");
+    printf("PosiÁ„o: ");
     scanf("%d", &pos);
 
     ANIMAL* novo = malloc(sizeof(ANIMAL));
     if (!novo) {
-        printf("Erro de mem√≥ria.\n");
+        printf("Erro de memÛria.\n");
         return;
     }
 
@@ -245,14 +245,14 @@ void InserirAnimalNaPosicao(LIST* list) {
 
 void RemoverAnimalNaPosicao(LIST* list) {
     int pos;
-    printf("\n--- Remover por Posi√ß√£o ---\n");
-    printf("Posi√ß√£o: ");
+    printf("\n--- Remover por PosiÁ„o ---\n");
+    printf("PosiÁ„o: ");
     scanf("%d", &pos);
 
     if (RemoveAt(list, pos))
         printf("Animal removido com sucesso.\n");
     else
-        printf("Erro: posi√ß√£o inv√°lida.\n");
+        printf("Erro: posiÁ„o inv·lida.\n");
 }
 
 void ImprimirLista(LIST list) {
@@ -307,13 +307,13 @@ int main() {
     do {
         printf("\n===== MENU =====\n");
         printf("1. Listar animais\n");
-        printf("2. Inserir no in√≠cio\n");
-        printf("3. Inserir em posi√ß√£o\n");
-        printf("4. Remover por posi√ß√£o\n");
+        printf("2. Inserir no inÌcio\n");
+        printf("3. Inserir em posiÁ„o\n");
+        printf("4. Remover por posiÁ„o\n");
         printf("5. Remover por nome\n");
         printf("6. Procurar por nome\n");
         printf("0. Sair\n");
-        printf("Op√ß√£o: ");
+        printf("OpÁ„o: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -324,7 +324,7 @@ int main() {
         case 5: RemoverAnimalPorNome(&zoo); break;
         case 6: ProcurarAnimalPorNome(zoo); break;
         case 0: printf("A sair...\n"); break;
-        default: printf("Op√ß√£o inv√°lida.\n");
+        default: printf("OpÁ„o inv·lida.\n");
         }
     } while (opcao != 0);
 
