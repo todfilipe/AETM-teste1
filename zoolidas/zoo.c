@@ -1,10 +1,10 @@
-#define _CRT_SECURE_NO_WARNINGS
+Ôªø#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 // --------------------------
-// DEFINI«’ES E ESTRUTURAS
+// DEFINI√á√ïES E ESTRUTURAS
 // --------------------------
 
 typedef struct {
@@ -21,7 +21,7 @@ typedef struct node {
 typedef LIST_NODE* LIST;
 
 // --------------------------
-// FUN«’ES DE N” E LISTA
+// FUN√á√ïES DE N√ì E LISTA
 // --------------------------
 
 LIST_NODE* NewNode(ANIMAL* data) {
@@ -50,50 +50,50 @@ void FreeList(LIST* list) {
 }
 
 int InsertAt(LIST* list, ANIMAL* data, int pos) {
-    // Se a posiÁ„o for negativa, È inv·lida ? n„o insere nada.
+    // Se a posi√ß√£o for negativa, √© inv√°lida ‚Üí n√£o insere nada.
     if (pos < 0) return 0;
 
-    // Cria um novo nÛ com os dados fornecidos.
+    // Cria um novo n√≥ com os dados fornecidos.
     LIST_NODE* new_node = NewNode(data);
 
-    // Se a criaÁ„o do nÛ falhar (memÛria insuficiente, etc), retorna 0.
+    // Se a cria√ß√£o do n√≥ falhar (mem√≥ria insuficiente, etc), retorna 0.
     if (new_node == NULL) return 0;
 
-    // Caso especial: inserir na cabeÁa da lista (posiÁ„o 0).
+    // Caso especial: inserir na cabe√ßa da lista (posi√ß√£o 0).
     if (pos == 0) {
-        // O novo nÛ aponta para o antigo primeiro elemento.
+        // O novo n√≥ aponta para o antigo primeiro elemento.
         new_node->next = *list;
 
-        // A lista agora comeÁa com o novo nÛ.
+        // A lista agora come√ßa com o novo n√≥.
         *list = new_node;
 
-        // InserÁ„o bem-sucedida.
+        // Inser√ß√£o bem-sucedida.
         return 1;
     }
 
     // Ponteiro auxiliar que percorre a lista.
     LIST_NODE* atual = *list;
 
-    // AvanÁa atÈ o nÛ imediatamente antes da posiÁ„o desejada.
-    // i < pos - 1 porque queremos parar no nÛ anterior ‡ posiÁ„o de inserÁ„o.
+    // Avan√ßa at√© o n√≥ imediatamente antes da posi√ß√£o desejada.
+    // i < pos - 1 porque queremos parar no n√≥ anterior √† posi√ß√£o de inser√ß√£o.
     for (int i = 0; i < pos - 1 && atual != NULL; i++) {
         atual = atual->next;
     }
 
-    // Se 'atual' for NULL, ent„o a posiÁ„o est· fora dos limites da lista.
+    // Se 'atual' for NULL, ent√£o a posi√ß√£o est√° fora dos limites da lista.
     if (atual == NULL) {
-        // Liberta o nÛ que foi criado, pois n„o ser· usado.
+        // Liberta o n√≥ que foi criado, pois n√£o ser√° usado.
         DeleteNode(new_node);
         return 0;
     }
 
-    // Liga o novo nÛ ao nÛ seguinte (que antes vinha depois de 'atual').
+    // Liga o novo n√≥ ao n√≥ seguinte (que antes vinha depois de 'atual').
     new_node->next = atual->next;
 
-    // Liga o nÛ anterior ('atual') ao novo nÛ.
+    // Liga o n√≥ anterior ('atual') ao novo n√≥.
     atual->next = new_node;
 
-    // InserÁ„o foi bem-sucedida.
+    // Inser√ß√£o foi bem-sucedida.
     return 1;
 }
 
@@ -125,25 +125,25 @@ int RemoveAt(LIST* list, int pos) {
 }
 
 // --------------------------
-// FUN«’ES NOVAS PEDIDAS
+// FUN√á√ïES NOVAS PEDIDAS
 // --------------------------
 
-// Inserir no inÌcio da lista
+// Inserir no in√≠cio da lista
 void InserirAnimalInicio(LIST* list) {
     char nome[100], especie[100];
     int idade;
 
-    printf("\n--- Inserir no inÌcio ---\n");
+    printf("\n--- Inserir no in√≠cio ---\n");
     printf("Nome: ");
     scanf(" %[^\n]", nome);
-    printf("EspÈcie: ");
+    printf("Esp√©cie: ");
     scanf(" %[^\n]", especie);
     printf("Idade: ");
     scanf("%d", &idade);
 
     ANIMAL* novo = malloc(sizeof(ANIMAL));
     if (!novo) {
-        printf("Erro de memÛria.\n");
+        printf("Erro de mem√≥ria.\n");
         return;
     }
 
@@ -152,7 +152,7 @@ void InserirAnimalInicio(LIST* list) {
     novo->idade = idade;
 
     if (InsertAt(list, novo, 0))
-        printf("Animal inserido no inÌcio com sucesso.\n");
+        printf("Animal inserido no in√≠cio com sucesso.\n");
     else {
         printf("Erro ao inserir.\n");
         free(novo);
@@ -175,7 +175,7 @@ void ProcurarAnimalPorNome(LIST list) {
         list = list->next;
     }
 
-    printf("Animal n„o encontrado.\n");
+    printf("Animal n√£o encontrado.\n");
 }
 
 // Remover animal por nome
@@ -194,7 +194,7 @@ void RemoverAnimalPorNome(LIST* list) {
     }
 
     if (atual == NULL) {
-        printf("Animal n„o encontrado.\n");
+        printf("Animal n√£o encontrado.\n");
         return;
     }
 
@@ -208,51 +208,67 @@ void RemoverAnimalPorNome(LIST* list) {
 }
 
 // --------------------------
-// RESTO DAS FUN«’ES
+// RESTO DAS FUN√á√ïES
 // --------------------------
 
 void InserirAnimalNaPosicao(LIST* list) {
-    char nome[100], especie[100];
-    int idade, pos;
+    char nome[100], especie[100];  // Vari√°veis para guardar o nome e a esp√©cie temporariamente
+    int idade, pos;                // Vari√°veis para guardar a idade e a posi√ß√£o na lista
 
-    printf("\n--- Inserir Animal em PosiÁ„o ---\n");
+    // Mostra ao utilizador o que est√° prestes a acontecer
+    printf("\n--- Inserir Animal em Posi√ß√£o ---\n");
+
+    // Pede ao utilizador o nome do animal (pode conter espa√ßos)
     printf("Nome: ");
-    scanf(" %[^\n]", nome);
-    printf("EspÈcie: ");
+    scanf(" %[^\n]", nome);  // O espa√ßo antes de %[^\n] limpa o buffer (evita problemas com enter)
+
+    // Pede a esp√©cie do animal
+    printf("Esp√©cie: ");
     scanf(" %[^\n]", especie);
+
+    // Pede a idade
     printf("Idade: ");
     scanf("%d", &idade);
-    printf("PosiÁ„o: ");
+
+    // Pede a posi√ß√£o onde o utilizador quer inserir o animal
+    printf("Posi√ß√£o: ");
     scanf("%d", &pos);
 
+    // Aloca mem√≥ria para guardar o novo animal (do tipo ANIMAL)
     ANIMAL* novo = malloc(sizeof(ANIMAL));
+
+    // Verifica se a aloca√ß√£o foi bem-sucedida
     if (!novo) {
-        printf("Erro de memÛria.\n");
-        return;
+        printf("Erro de mem√≥ria.\n");
+        return;  // Encerra a fun√ß√£o, pois n√£o √© poss√≠vel continuar sem mem√≥ria
     }
 
-    strcpy(novo->nome, nome);
-    strcpy(novo->especie, especie);
-    novo->idade = idade;
+    // Copia os dados introduzidos pelo utilizador para a estrutura ANIMAL
+    strcpy(novo->nome, nome);         // Copia o nome para dentro da estrutura
+    strcpy(novo->especie, especie);   // Copia a esp√©cie
+    novo->idade = idade;              // Atribui a idade
 
+    // Tenta inserir o animal na posi√ß√£o indicada usando a fun√ß√£o InsertAt
     if (InsertAt(list, novo, pos))
         printf("Animal inserido com sucesso.\n");
     else {
+        // Se a inser√ß√£o falhar (ex: posi√ß√£o inv√°lida), liberta a mem√≥ria
         printf("Erro ao inserir.\n");
         free(novo);
     }
 }
 
+
 void RemoverAnimalNaPosicao(LIST* list) {
     int pos;
-    printf("\n--- Remover por PosiÁ„o ---\n");
-    printf("PosiÁ„o: ");
+    printf("\n--- Remover por Posi√ß√£o ---\n");
+    printf("Posi√ß√£o: ");
     scanf("%d", &pos);
 
     if (RemoveAt(list, pos))
         printf("Animal removido com sucesso.\n");
     else
-        printf("Erro: posiÁ„o inv·lida.\n");
+        printf("Erro: posi√ß√£o inv√°lida.\n");
 }
 
 void ImprimirLista(LIST list) {
@@ -265,32 +281,50 @@ void ImprimirLista(LIST list) {
 }
 
 int ReadAnimalsFromFile(LIST* list, const char* filename) {
+    // Tenta abrir o ficheiro indicado no modo de leitura ("r").
     FILE* fp = fopen(filename, "r");
+
+    // Se o ficheiro n√£o foi aberto corretamente (por exemplo, n√£o existe), mostra erro.
     if (!fp) {
         perror("Erro ao abrir ficheiro");
-        return 0;
+        return 0; // Retorna 0 para indicar que a leitura falhou.
     }
 
-    char linha[300];
-    int pos = 0;
+    char linha[300];  // Buffer para guardar cada linha do ficheiro (at√© 299 caracteres + '\0')
+    int pos = 0;      // Vari√°vel que vai controlar a posi√ß√£o onde inserir na lista
+
+    // Enquanto houver linhas para ler do ficheiro:
     while (fgets(linha, sizeof(linha), fp)) {
+
+        // Aloca mem√≥ria para um novo animal (tipo ANIMAL).
         ANIMAL* a = malloc(sizeof(ANIMAL));
+
+        // Se a aloca√ß√£o falhar (sem mem√≥ria, por exemplo), passa para a pr√≥xima linha.
         if (!a) continue;
 
+        // Remove o car√°cter de nova linha '\n' do final da string (se existir).
         linha[strcspn(linha, "\n")] = 0;
 
+        // Divide a linha em tr√™s partes: nome, esp√©cie e idade.
+        // O formato esperado √© algo como: "Luna;C√£o;3"
         if (sscanf(linha, "%[^;];%[^;];%d", a->nome, a->especie, &a->idade) == 3) {
+            // Se conseguir ler os 3 campos corretamente, insere o animal na lista.
             InsertAt(list, a, pos);
-            pos++;
+            pos++;  // Avan√ßa para a pr√≥xima posi√ß√£o
         }
         else {
+            // Se a linha estiver mal formatada, liberta a mem√≥ria alocada e ignora a linha.
             free(a);
         }
     }
 
+    // Fecha o ficheiro, pois j√° termin√°mos a leitura.
     fclose(fp);
+
+    // Retorna 1 para indicar sucesso.
     return 1;
 }
+
 
 // --------------------------
 // MAIN COM MENU
@@ -307,13 +341,13 @@ int main() {
     do {
         printf("\n===== MENU =====\n");
         printf("1. Listar animais\n");
-        printf("2. Inserir no inÌcio\n");
-        printf("3. Inserir em posiÁ„o\n");
-        printf("4. Remover por posiÁ„o\n");
+        printf("2. Inserir no in√≠cio\n");
+        printf("3. Inserir em posi√ß√£o\n");
+        printf("4. Remover por posi√ß√£o\n");
         printf("5. Remover por nome\n");
         printf("6. Procurar por nome\n");
         printf("0. Sair\n");
-        printf("OpÁ„o: ");
+        printf("Op√ß√£o: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -324,7 +358,7 @@ int main() {
         case 5: RemoverAnimalPorNome(&zoo); break;
         case 6: ProcurarAnimalPorNome(zoo); break;
         case 0: printf("A sair...\n"); break;
-        default: printf("OpÁ„o inv·lida.\n");
+        default: printf("Op√ß√£o inv√°lida.\n");
         }
     } while (opcao != 0);
 
