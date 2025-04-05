@@ -98,31 +98,53 @@ int InsertAt(LIST* list, ANIMAL* data, int pos) {
 }
 
 
+// Remove o nó que está na posição 'pos' da lista ligada
+// Retorna 1 se remover com sucesso, ou 0 se falhar (posição inválida ou lista vazia)
 int RemoveAt(LIST* list, int pos) {
+    // Verifica se a lista está vazia ou se a posição é inválida (negativa)
     if (*list == NULL || pos < 0)
         return 0;
 
+    // Ponteiro para o nó atual (usado para percorrer a lista)
     LIST_NODE* atual = *list;
+
+    // Ponteiro para guardar o nó anterior ao que queremos remover
     LIST_NODE* anterior = NULL;
 
+    // Caso especial: o utilizador quer remover o primeiro nó (posição 0)
     if (pos == 0) {
+        // A cabeça da lista passa a ser o segundo nó
         *list = atual->next;
+
+        // Liberta o nó que foi removido (o primeiro)
         DeleteNode(atual);
+
+        // Indica que a remoção foi feita com sucesso
         return 1;
     }
 
+    // Percorre a lista até chegar à posição desejada
+    // 'i < pos' garante que paramos exatamente no nó a remover
+    // Se 'atual' for NULL a meio do caminho, significa que a posição não existe
     for (int i = 0; i < pos && atual != NULL; i++) {
-        anterior = atual;
-        atual = atual->next;
+        anterior = atual;         // Guarda o nó atual como o "anterior"
+        atual = atual->next;      // Avança para o próximo nó
     }
 
-    if (atual == NULL)
-        return 0;
+    // Se 'atual' for NULL, significa que a posição era maior do que o tamanho da lista
+    if (atual == NULL)  
+        return 0; // Não há nó para remover
 
+    // Liga o nó anterior ao próximo do atual, saltando o nó que vai ser removido
     anterior->next = atual->next;
+
+    // Liberta a memória do nó a ser removido
     DeleteNode(atual);
+
+    // Indica sucesso
     return 1;
 }
+
 
 // --------------------------
 // FUNÇÕES NOVAS PEDIDAS
@@ -160,24 +182,37 @@ void InserirAnimalInicio(LIST* list) {
 }
 
 // Procurar animal por nome
+// Procura um animal na lista com o nome indicado pelo utilizador
 void ProcurarAnimalPorNome(LIST list) {
-    char nome[100];
-    printf("\n--- Procurar Animal ---\n");
-    printf("Nome a procurar: ");
-    scanf(" %[^\n]", nome);
+    char nome[100];  // Variável para guardar o nome a procurar
 
+    // Título da operação
+    printf("\n--- Procurar Animal ---\n");
+
+    // Pede ao utilizador o nome do animal
+    printf("Nome a procurar: ");
+    scanf(" %[^\n]", nome);  // Lê uma string com espaços até ao Enter
+
+    // Percorre toda a lista ligada
     while (list != NULL) {
+        // Compara o nome do animal atual com o nome fornecido
         if (strcmp(list->data->nome, nome) == 0) {
+            // Se for igual, mostra os dados do animal
             printf("Encontrado: %s (%s), %d anos\n",
-                list->data->nome, list->data->especie, list->data->idade);
-            return;
+                list->data->nome,     // Nome do animal
+                list->data->especie,  // Espécie
+                list->data->idade);   // Idade
+            return;  // Termina a função (animal encontrado)
         }
+
+        // Avança para o próximo nó da lista
         list = list->next;
     }
 
+    // Se chegou ao fim da lista e não encontrou, mostra esta mensagem
     printf("Animal não encontrado.\n");
 }
-
+    
 // Remover animal por nome
 void RemoverAnimalPorNome(LIST* list) {
     char nome[100];  // Variável para guardar o nome que o utilizador quer remover
@@ -201,7 +236,7 @@ void RemoverAnimalPorNome(LIST* list) {
         printf("Animal não encontrado.\n");
         return;  // Termina a função
     }
-
+     
     // Se o 'anterior' for NULL, significa que o animal está no primeiro nó (início da lista)
     if (anterior == NULL)
         *list = atual->next;  // A cabeça da lista passa a ser o segundo nó
@@ -333,6 +368,38 @@ int ReadAnimalsFromFile(LIST* list, const char* filename) {
     return 1;
 }
 
+
+void InserirAnimalNoFinal(LIST* list) {
+	char nome[100], especie[100];
+	int idade;
+
+    printf("Insira o nome");
+    scanf("%[\n]", nome);
+	printf("Insira a especie: ");
+	scanf("%[\n]", especie);
+	printf("Insira a idade: ");
+	scanf("%d", &idade);
+
+    ANIMAL* novo = NULL;
+	LIST_NODE* atual = *list;
+		strcpy(novo->nome, nome);
+		strcpy(novo->especie, especie);
+		novo->idade = idade;
+
+		if (atual == NULL) {
+			*list = NewNode(novo);
+			return;
+		}
+
+    while( atual->next != NULL )
+	{
+		atual = atual->next;
+	}
+
+    novo = atual->next;
+
+
+}
 
 // --------------------------
 // MAIN COM MENU
